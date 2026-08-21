@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Shield, Play, AlertOctagon, CheckCircle2, ArrowLeft, RefreshCw, Terminal, ChevronRight } from 'lucide-react'
+import { Shield, Play, AlertOctagon, CheckCircle2, ArrowLeft, RefreshCw, Terminal, ChevronRight, Search, Wrench } from 'lucide-react'
 import { evaluationsApi } from '../lib/api'
 import ScoreRing from '../components/ScoreRing'
 import SeverityBadge from '../components/SeverityBadge'
@@ -125,7 +125,22 @@ export default function EvaluationDetail() {
               <p className="text-xs text-slate-400">{f.evidence}</p>
               <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs">
                 <span className="text-cyan-400 font-mono">Tool: {f.affected_tool || 'System'}</span>
-                <span className="text-slate-400 italic">Recommendation: {f.recommendation}</span>
+                <div className="flex items-center gap-2">
+                  <Link
+                    to={`/root-cause/${f.id}`}
+                    className="flex items-center gap-1 px-3 py-1 rounded-lg font-semibold transition-all"
+                    style={{ background: 'rgba(239,68,68,0.1)', color: '#ef4444', border: '1px solid rgba(239,68,68,0.3)' }}
+                  >
+                    <Search size={10} /> Root Cause
+                  </Link>
+                  <Link
+                    to={`/fix-engine/${f.id}`}
+                    className="flex items-center gap-1 px-3 py-1 rounded-lg font-semibold transition-all"
+                    style={{ background: 'rgba(249,115,22,0.1)', color: '#f97316', border: '1px solid rgba(249,115,22,0.3)' }}
+                  >
+                    <Wrench size={10} /> Fix Engine
+                  </Link>
+                </div>
               </div>
             </div>
           ))}

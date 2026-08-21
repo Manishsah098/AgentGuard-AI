@@ -13,6 +13,7 @@ import {
 import { dashboardApi, agentsApi, evaluationsApi } from '../lib/api'
 import ScoreRing from '../components/ScoreRing'
 import SeverityBadge from '../components/SeverityBadge'
+import PipelineFlowDiagram from '../components/PipelineFlowDiagram'
 
 // Demo data (used when backend unavailable)
 const DEMO_STATS = {
@@ -123,6 +124,9 @@ export default function Dashboard() {
           </Link>
         </div>
       </div>
+
+      {/* 7-Step Pipeline Flow Diagram */}
+      <PipelineFlowDiagram />
 
       {/* Score Hero + Quick Stats */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">

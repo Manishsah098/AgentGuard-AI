@@ -3,14 +3,16 @@ import { Link, useLocation } from 'react-router-dom'
 import {
   Shield, LayoutDashboard, Bot, Play, GitCompare,
   FileText, GitBranch, Activity, ChevronLeft, ChevronRight,
-  Zap, AlertTriangle
+  Zap, AlertTriangle, Wrench, Search
 } from 'lucide-react'
 
 const navItems = [
   { path: '/', label: 'Dashboard', icon: LayoutDashboard },
   { path: '/agents', label: 'Agent Registry', icon: Bot },
   { path: '/evaluate', label: 'Run Evaluation', icon: Play },
-  { path: '/regression', label: 'Regression', icon: GitCompare },
+  { path: '/root-cause', label: 'Root Cause (Step 5)', icon: Search, accent: '#ef4444' },
+  { path: '/fix-engine', label: 'Fix Engine (Step 6)', icon: Wrench, accent: '#f97316' },
+  { path: '/regression', label: 'Regression (Step 7)', icon: GitCompare, accent: '#10b981' },
   { path: '/ci-gate', label: 'CI/CD Gate', icon: GitBranch },
   { path: '/reports', label: 'Reports', icon: FileText },
 ]
@@ -50,9 +52,10 @@ export default function Layout({ children }) {
 
         {/* Nav Items */}
         <nav className="flex-1 p-3 space-y-1">
-          {navItems.map(({ path, label, icon: Icon }) => {
+          {navItems.map(({ path, label, icon: Icon, accent }) => {
             const isActive = location.pathname === path || 
               (path !== '/' && location.pathname.startsWith(path))
+            const activeColor = accent || '#60a5fa'
             return (
               <Link
                 key={path}
@@ -60,10 +63,14 @@ export default function Layout({ children }) {
                 className={`nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg border transition-all ${
                   isActive ? 'active' : 'border-transparent'
                 }`}
-                style={{ color: isActive ? '#60a5fa' : 'var(--color-text-secondary)' }}
+                style={{
+                  color: isActive ? activeColor : 'var(--color-text-secondary)',
+                  borderColor: isActive ? `${activeColor}50` : 'transparent',
+                  background: isActive ? `${activeColor}15` : 'transparent',
+                }}
                 title={collapsed ? label : ''}
               >
-                <Icon size={17} className="flex-shrink-0" />
+                <Icon size={17} className="flex-shrink-0" style={{ color: isActive ? activeColor : undefined }} />
                 {!collapsed && <span className="text-sm font-medium">{label}</span>}
               </Link>
             )

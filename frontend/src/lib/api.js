@@ -41,4 +41,20 @@ export const scenariosApi = {
   }),
 }
 
+// Step 5: AI Root Cause Analyzer
+// Step 6: AI Fix Engine
+export const fixEngineApi = {
+  getRootCause: (failureId) => api.get(`/failures/${failureId}/root-cause`),
+  getFixPlan: (failureId) => api.get(`/failures/${failureId}/fix-plan`),
+  applyFix: (failureId, fixType) => api.post(`/failures/${failureId}/apply-fix`, null, { params: { fix_type: fixType } }),
+  getAllFixes: (evalId) => api.get(`/failures/evaluation/${evalId}/all-fixes`),
+}
+
+// Step 7: Regression Test Loop
+export const regressionApi = {
+  triggerLoop: (evalId) => api.post(`/failures/regression-loop/${evalId}`),
+  getStatus: (regressionId) => api.get(`/failures/regression/${regressionId}/status`),
+}
+
 export default api
+
