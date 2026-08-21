@@ -43,6 +43,8 @@ def root():
 
 
 @app.get("/api/health")
+@app.head("/api/health")
 def health_check():
     return {"status": "operational", "service": "AgentGuard AI", "version": "1.0.0"}
+
 

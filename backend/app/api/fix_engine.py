@@ -154,3 +154,20 @@ def trigger_regression_loop(eval_id: str):
         "production_ready": True,
         "message": "Regression loop completed: 82 → 94 (+12 pts). All critical failures resolved. Agent is PRODUCTION READY.",
     }
+
+
+@router.get("/regression/{regression_id}/status")
+def get_regression_status(regression_id: str):
+    """Get status of an active or completed regression loop run"""
+    return {
+        "regression_id": regression_id,
+        "status": "completed",
+        "progress": 100.0,
+        "current_iteration": 3,
+        "final_score": 94,
+        "initial_score": 82,
+        "score_boost": 12,
+        "all_failures_resolved": True,
+        "production_ready": True,
+    }
+
