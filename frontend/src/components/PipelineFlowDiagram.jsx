@@ -113,8 +113,8 @@ function PipelineNode({ step, isActive, isComplete, onClick, index, total }) {
         style={{
           background: isActive
             ? `linear-gradient(135deg, ${step.color}15, ${step.color}08)`
-            : 'rgba(17,24,39,0.8)',
-          borderColor: isActive ? step.color : 'rgba(30,45,61,0.8)',
+            : 'var(--color-bg-card)',
+          borderColor: isActive ? step.color : 'var(--color-border)',
           boxShadow: isActive ? `0 0 20px ${step.glow}, 0 0 40px ${step.glow}50` : 'none',
           minWidth: '140px',
         }}
@@ -131,8 +131,9 @@ function PipelineNode({ step, isActive, isComplete, onClick, index, total }) {
         <div
           className="absolute top-2 left-2 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold"
           style={{
-            background: isActive ? step.color : 'rgba(30,45,61,0.8)',
-            color: isActive ? '#000' : '#475569',
+            background: isActive ? step.color : 'var(--color-bg-elevated)',
+            color: isActive ? '#fff' : 'var(--color-text-muted)',
+            border: '1px solid var(--color-border)',
           }}
         >
           {step.id}
@@ -149,8 +150,8 @@ function PipelineNode({ step, isActive, isComplete, onClick, index, total }) {
         <div
           className="w-10 h-10 rounded-xl flex items-center justify-center mt-2 transition-all duration-300 group-hover:scale-110"
           style={{
-            background: `${step.color}20`,
-            border: `1px solid ${step.color}40`,
+            background: `${step.color}15`,
+            border: `1px solid ${step.color}35`,
           }}
         >
           <Icon size={18} style={{ color: step.color }} />
@@ -158,8 +159,8 @@ function PipelineNode({ step, isActive, isComplete, onClick, index, total }) {
 
         {/* Label */}
         <div className="text-center">
-          <div className="text-xs font-bold text-slate-200 leading-tight">{step.label}</div>
-          <div className="text-xs mt-0.5 leading-tight" style={{ color: step.color, opacity: 0.8 }}>
+          <div className="text-xs font-bold leading-tight" style={{ color: 'var(--color-text-primary)' }}>{step.label}</div>
+          <div className="text-xs mt-0.5 leading-tight font-medium" style={{ color: step.color }}>
             {step.sublabel}
           </div>
         </div>
@@ -185,20 +186,21 @@ function PipelineNode({ step, isActive, isComplete, onClick, index, total }) {
   )
 }
 
-function AnimatedArrow({ color = '#1e2d3d', vertical = false, active = false }) {
+function AnimatedArrow({ color = 'var(--color-border-bright)', vertical = false, active = false }) {
+  const arrowColor = active ? color : 'var(--color-border-bright)'
   return (
     <div className="flex items-center justify-center flex-shrink-0">
       {vertical ? (
         <div className="flex flex-col items-center gap-0.5 py-1">
           <div className="w-0.5 h-4 rounded-full transition-all duration-500"
-            style={{ background: active ? color : '#1e2d3d', boxShadow: active ? `0 0 8px ${color}` : 'none' }} />
-          <ArrowDown size={12} style={{ color: active ? color : '#1e2d3d' }} />
+            style={{ background: arrowColor, boxShadow: active ? `0 0 8px ${color}` : 'none' }} />
+          <ArrowDown size={12} style={{ color: arrowColor }} />
         </div>
       ) : (
         <div className="flex items-center gap-0.5 px-1">
           <div className="h-0.5 w-8 rounded-full transition-all duration-500"
-            style={{ background: active ? color : '#1e2d3d', boxShadow: active ? `0 0 8px ${color}` : 'none' }} />
-          <ArrowRight size={12} style={{ color: active ? color : '#1e2d3d' }} />
+            style={{ background: arrowColor, boxShadow: active ? `0 0 8px ${color}` : 'none' }} />
+          <ArrowRight size={12} style={{ color: arrowColor }} />
         </div>
       )}
     </div>
